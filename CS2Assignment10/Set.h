@@ -5,31 +5,21 @@ using namespace std;
 
 class ListNode
 {  
-public:	
-	ListNode() ;
-	ListNode(int i) ;
-
-	int i;
-	ListNode *next;
-}; 
-
-/*class LList
-{  
-private:
-	ListNode *head;
-
 public:
-	LList();
+    int element;
+	ListNode *next;
 
-	void Insert (string s);	// insert a new name in order
-	void Delete (string s);	// delete a name
-	void Display ();		// display list in order
-};*/
+	ListNode();
+	ListNode(int element);	
+}; 
 
 class Set
 {
+private:
+    ListNode *head;
 public:
-    Set(void);
+
+    Set();
     
     //COPY CONSTRUCTOR
     Set (const Set *obj);
