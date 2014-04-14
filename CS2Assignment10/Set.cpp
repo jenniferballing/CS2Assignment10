@@ -61,11 +61,22 @@ void Set::Insert (int element)
     }
     prev->next = newNode;
     newNode->next = curr;
-    while( element != NULL)
+    prev = head;
+    curr = head->next;
+}
+int Set::Size ()
+{
+    int count =1;
+    
+    ListNode *prev = head;
+    //ListNode *curr = head->next;
+
+    while(prev->element<100)
     {
-        cout<< head->element<<endl;
-        head = head->next;
+        count++;
+        prev = prev->next;
     }
+    return count;
 }
 
 
