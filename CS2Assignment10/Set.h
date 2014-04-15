@@ -41,8 +41,6 @@ public:
     Set& operator^ (Set &obj);
     Set& operator+ (Set& obj);
     Set& operator- (Set& obj);
-    void operator<< (Set& obj);
-    void operator>> (int element);
     void operator= (Set &obj);
     int operator [] (int index);
     
@@ -55,6 +53,13 @@ public:
 
     //DESTRUCTOR
     ~Set(void);
+
+    friend void operator>> (istream &is, Set& obj);
+
+    void Output(ostream & out) ; 
 };
+
+void operator >>  (istream &is, Set& obj);
+ostream& operator<< (ostream &os, Set& obj);
 #endif
 

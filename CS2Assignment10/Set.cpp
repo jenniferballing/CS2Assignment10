@@ -158,6 +158,48 @@ Set& Set::operator- (Set &obj)
     Set &temp = newSet;
     return temp;
 }
+void Set::Output(ostream & out)
+{
+    ListNode *thisNode = head;
+    thisNode = thisNode->next;
+    while(thisNode->element != 100)
+    {
+        out<<thisNode->element<< endl;
+        thisNode = thisNode->next;
+    }
+}
+ostream& operator<< (ostream & os, Set& obj)
+{
+    obj.Output(os);
+    return os;
+}
+void operator>> (istream & is, Set &obj)
+{
+    //ListNode *newNode=obj.head;
+    int num;
+    cout<<"Input the new integer for the linked list: "<<endl;
+    is>>num;//newNode->element;
+    obj.Insert(num);//newNode->element);
+}
+/*void Set::operator= (Set &obj)
+{
+
+}*/
+int Set::operator [] (int index)
+{
+    int listArr[50];
+    int i=0;
+    ListNode *thisPrev = this->head;
+    thisPrev= thisPrev->next;
+    while(thisPrev->element !=100)
+    {
+        listArr[i] = thisPrev->element;
+        thisPrev = thisPrev->next;
+        i++;
+    }
+    return listArr[index];
+}
+
 void Set::Insert (int element)
 {
     if(element >100 || element <0)
