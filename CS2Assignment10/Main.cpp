@@ -12,6 +12,7 @@ int main ()
     Set four;
     Set five;
     Set six;
+    Set seven;
 
     one.Insert(1);
     one.Insert(2);
@@ -44,8 +45,9 @@ int main ()
     six.Insert(3);
     six.Insert(4);
 
-    Set newNewSet = six+four;
-    newNewSet.Print();
+    
+    Set set = six+four;
+    set.Print();
 
     cout<<(two<one)<<endl;
     cout<<(three<one)<<endl;

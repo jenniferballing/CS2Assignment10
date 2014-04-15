@@ -81,33 +81,54 @@ Set& Set::operator^ (Set &obj)
     Set &temp = newSet;
     return temp;
 }
-Set& Set::operator+ (Set& obj)
+Set& Set::operator+ (Set &obj)
 {
     Set newSet;
+    //Set objTemp = obj;
+    //Set thisTemp = this;
+
     ListNode *objPrev = obj.head;
     ListNode *thisPrev = this->head;
-    ListNode *tempNode;
-    while(1)
-    {
-        for(int i=0; i<obj.Size(); i++)
-        {
-            for(int j=0; j<this->Size(); j++)
-            {
-                if(objPrev->element == thisPrev->element)
-                {
 
-                }
-                thisPrev= thisPrev->next;
-            }
-            objPrev=objPrev->next;
-        }
+    //Put all of obj into set
+    while(objPrev->element !=100)
+    {
+        newSet.Insert(objPrev->element);
+        objPrev=objPrev->next;
     }
+
+    objPrev = obj.head;
+    int count =0;
+    //Cycle through this
+    while(thisPrev->element != 100)
+    {
+        //Cycle through obj
+        while(objPrev->element != 100)
+        {
+            if(thisPrev->element == objPrev->element) count+=1;
+            
+            //Increase obj
+            objPrev = objPrev->next;
+        }
+
+        //If there were no matches, add
+        if(count == 0)
+        {
+            newSet.Insert(thisPrev->element);
+        }
+        
+        //Increase this
+        objPrev = obj.head;
+        thisPrev= thisPrev->next;
+        count=0;
+    }
+
     Set &temp = newSet;
     return temp;
 }
 void Set::Insert (int element)
 {
-    if(element >99 || element <1)
+    if(element >100 || element <0)
     {
         cout<<"Please insert an integer that is between 0 and 100."<<endl;
         cout<<"The integer: "<<element<<" does not fall between 0 and 100."<<endl;
