@@ -56,27 +56,27 @@ bool Set::operator< (Set &obj)
 Set& Set::operator^ (Set &obj)
 {
     Set newSet;
-    ListNode *newNode = new ListNode();
-   
-    ListNode *thisPrev = head;
+    ListNode *thisPrev = this->head;
     ListNode *objPrev = obj.head;
 
-    ListNode * newPrev = new ListNode();
-    ListNode * newCurr = new ListNode();
-    
-    int objSize = obj.Size();
-    int thisSize = this->Size();
-    for(int i =0; i<objSize-1; i++)
+     //Cycle through this
+    while(thisPrev->element != 100)
     {
-        if(thisPrev->element == objPrev->element)
+        //Cycle through obj
+        while(objPrev->element != 100)
         {
-            newNode=objPrev; 
-
-            newSet.Insert(newNode->element);
+            //If element exists in both sets add to temp set
+            if(thisPrev->element == objPrev->element) 
+            {
+                newSet.Insert(thisPrev->element);
+            }
             
-            thisPrev=thisPrev->next;
-        }
-        objPrev = objPrev->next;
+            //Increase obj
+            objPrev = objPrev->next;
+        }        
+        //Increase this
+        objPrev = obj.head;
+        thisPrev= thisPrev->next;
     }
     Set &temp = newSet;
     return temp;
@@ -84,9 +84,7 @@ Set& Set::operator^ (Set &obj)
 Set& Set::operator+ (Set &obj)
 {
     Set newSet;
-    //Set objTemp = obj;
-    //Set thisTemp = this;
-
+    
     ListNode *objPrev = obj.head;
     ListNode *thisPrev = this->head;
 
@@ -123,6 +121,40 @@ Set& Set::operator+ (Set &obj)
         count=0;
     }
 
+    Set &temp = newSet;
+    return temp;
+}
+Set& Set::operator- (Set &obj)
+{
+    Set newSet;
+
+    ListNode *objPrev = obj.head;
+    ListNode *thisPrev = this->head;
+
+    objPrev = obj.head;
+    int count =0;
+    //Cycle through this
+    while(thisPrev->element != 100)
+    {
+        //Cycle through obj
+        while(objPrev->element != 100)
+        {
+            if(thisPrev->element == objPrev->element) count+=1;
+            
+            //Increase obj
+            objPrev = objPrev->next;
+        }
+
+        //If there were no matches, add
+        if(count == 0)
+        {
+            newSet.Insert(thisPrev->element);
+        }
+        //Increase this, Set obj back to head, reset count
+        objPrev = obj.head;
+        thisPrev= thisPrev->next;
+        count=0;
+    }
     Set &temp = newSet;
     return temp;
 }
@@ -198,9 +230,12 @@ void Set::Print ()
     ListNode *prev = head;
     while(prev->element != 100)
     {
-        cout<<prev->element<<endl;
+        if(prev->element != 0 && prev->element != 100)
+        {
+            cout<<prev->element<<endl;
+        }     
         prev=prev->next;
-    } cout<< 100<<endl;
+    } cout<<endl;
 }
 int Set::Size ()
 {

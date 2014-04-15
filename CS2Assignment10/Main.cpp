@@ -6,54 +6,58 @@ using namespace std;
 
 int main ()
 {
-    Set one;
-    Set two;
-    Set three;
-    Set four;
-    Set five;
-    Set six;
-    Set seven;
-
-    one.Insert(1);
+    cout<<"Test of copy constructor, Insert Funtion and Print Function: \nset one {2,4,6,8} copied to two, and printed. "<<endl;
+    Set cpyConTest, one;
+    //Test of Insert
     one.Insert(2);
-    one.Insert(3);
     one.Insert(4);
+    one.Insert(6);
+    one.Insert(8);
+    //Test of Copy Constructor
+    Set two(one);
+    //Test of print
+    two.Print();
 
-    two.Insert(1);
-    two.Insert(2);
-    
+    cout<<"Test of proper subset \'<\': set three{1,3}, set four {1, 2, 3, 4, 5}. (Returned bool should be 1):"<<endl;
+    Set three, four;
+    bool propSubTest;
     three.Insert(1);
-    three.Insert(2);
     three.Insert(3);
-    three.Insert(6);
-
-    Set newSet = three^two;
-    newSet.Print();
 
     four.Insert(1);
     four.Insert(2);
     four.Insert(3);
     four.Insert(4);
-    four.Insert(5);
 
+    propSubTest = three<four;
+    cout<<endl<<propSubTest<<endl;
+
+    cout<<"Test of intersection \'^\': set five{1, 3, 5, 6}, set six {3, 4, 5}. (Returned set should be {3, 5}):"<<endl;
+    Set five, six;
+    
     five.Insert(1);
-    five.Insert(2);
     five.Insert(3);
+    five.Insert(5);
+    five.Insert(6);
 
-    six.Insert(1);
-    six.Insert(16);
     six.Insert(3);
     six.Insert(4);
+    six.Insert(5);
 
+    Set interTest = five ^ six;
+    interTest.Print();
     
-    Set set = six+four;
-    set.Print();
+    
+    
+    /*
+    Set nSet = five-six;
+    nSet.Print();
 
     cout<<(two<one)<<endl;
     cout<<(three<one)<<endl;
     cout<<(four<one)<<endl;
     cout<<(five<one)<<endl;
-    cout<<(six<one)<<endl;
+    cout<<(six<one)<<endl;*/
 
 
     /*one.Insert(105);
