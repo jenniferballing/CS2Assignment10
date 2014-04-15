@@ -11,13 +11,11 @@ ListNode::ListNode(int e)
     element = e;
     next=NULL;
 }
-
 Set::Set()
 {
     head = new ListNode (0);
     head->next = new ListNode (100);
 }
-
 Set::Set (const Set *obj)
 {
     ListNode *newNode = new ListNode();
@@ -33,36 +31,155 @@ Set::Set (const Set *obj)
         prev = current;
         current = current->next;
     }   
-    /*obj->head = this->head;
-    while( this->next != NULL)
-    {
-        obj->next = this
-    }*/
 }
 bool Set::operator< (Set &obj)
 {
     //this is the subset, obj is the large set
-    //if(
-    return true;
+    int counter = 1;
+    ListNode *thisPrev = head;
+    ListNode *objPrev = obj.head;
+    int objSize = obj.Size();
+    int thisSize = this->Size();
+    if(objSize==thisSize) return false;
+    for(int i =0; i<objSize-1; i++)
+    {
+        if(thisPrev->element == objPrev->element)
+        {
+            counter+=1;
+            thisPrev=thisPrev->next;
+        }
+        objPrev = objPrev->next;
+    }
+    if(counter==this->Size()) return true;
+    return false;
 }
+Set& Set::operator^ (Set &obj)
+{
+    Set newSet;
+    ListNode *newNode = new ListNode();
+   
+    ListNode *thisPrev = head;
+    ListNode *objPrev = obj.head;
 
+    ListNode * newPrev = new ListNode();
+    ListNode * newCurr = new ListNode();
+    
+    int objSize = obj.Size();
+    int thisSize = this->Size();
+    for(int i =0; i<objSize-1; i++)
+    {
+        if(thisPrev->element == objPrev->element)
+        {
+            newNode=objPrev; 
 
+            newSet.Insert(newNode->element);
+            
+            thisPrev=thisPrev->next;
+        }
+        objPrev = objPrev->next;
+    }
+    Set &temp = newSet;
+    return temp;
+}
+Set& Set::operator+ (Set& obj)
+{
+    Set newSet;
+    ListNode *objPrev = obj.head;
+    ListNode *thisPrev = this->head;
+    ListNode *tempNode;
+    while(1)
+    {
+        for(int i=0; i<obj.Size(); i++)
+        {
+            for(int j=0; j<this->Size(); j++)
+            {
+                if(objPrev->element == thisPrev->element)
+                {
+
+                }
+                thisPrev= thisPrev->next;
+            }
+            objPrev=objPrev->next;
+        }
+    }
+    Set &temp = newSet;
+    return temp;
+}
 void Set::Insert (int element)
 {
+    if(element >99 || element <1)
+    {
+        cout<<"Please insert an integer that is between 0 and 100."<<endl;
+        cout<<"The integer: "<<element<<" does not fall between 0 and 100."<<endl;
+        return;
+    }
     ListNode *newNode = new ListNode(element);
 
     ListNode *prev = head;
     ListNode *curr = head->next;
 
+    //CHECKING FOR DUPLICATES
+    while(prev->element != 100)
+    {
+        prev = prev->next;
+        if(element == prev->element)
+        {
+            throw DuplicateException(element, "Duplicate Entry");
+        }
+    }
+    prev = head; 
+    
+    //LOCATE POSITION OF NEW ELEMENT
     while (element > curr->element)
     {
         prev = curr;
-        curr = curr->next;   
+        curr = curr->next;  
     }
+    
     prev->next = newNode;
     newNode->next = curr;
-    prev = head;
-    curr = head->next;
+}
+void Set::Delete (int e)
+{
+    ListNode *prev = head;
+    ListNode *curr = head->next;
+
+    while(curr->element !=100)
+    {
+        if (curr->element == e)
+        {
+            prev->next = curr->next;
+            delete curr;
+            return;
+        }
+        prev = curr;
+        curr= curr->next;
+    }
+}
+bool Set::Find (int e)
+{
+    ListNode *prev = head;
+
+    while(prev->element != 100)
+    {
+        if(prev->element == e)
+        {
+            cout<<"The item is found."<<endl;
+            return true;
+        }
+        prev = prev->next;
+    }
+    cout<<"Not found."<<endl;
+    return false;
+}
+void Set::Print ()
+{
+    ListNode *prev = head;
+    while(prev->element != 100)
+    {
+        cout<<prev->element<<endl;
+        prev=prev->next;
+    } cout<< 100<<endl;
 }
 int Set::Size ()
 {
@@ -78,8 +195,6 @@ int Set::Size ()
     }
     return count;
 }
-
-
 Set::~Set(void)
 {
 }

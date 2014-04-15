@@ -12,6 +12,18 @@ public:
 	ListNode();
 	ListNode(int element);	
 }; 
+class DuplicateException 
+{	
+	public:
+	int duplicateIndex;
+	string message; 
+
+	DuplicateException(int i, string m)
+	{
+		duplicateIndex = i ;
+		message = m ;
+	}
+}; 
 
 class Set
 {
@@ -36,8 +48,8 @@ public:
     
     //CLASS FUNCTIONS
     void Insert (int element);
-    void Delete (int element);
-    bool Find (int element);
+    void Delete (int e);
+    bool Find (int e);
     void Print ();
     int Size ();
 
