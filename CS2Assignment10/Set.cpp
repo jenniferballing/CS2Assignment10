@@ -35,7 +35,7 @@ Set::Set (const Set *obj)
 bool Set::operator< (Set &obj)
 {
     //this is the subset, obj is the large set
-    int counter = 1;
+    int counter = 0;
     ListNode *thisPrev = head;
     ListNode *objPrev = obj.head;
     int objSize = obj.Size();
@@ -45,12 +45,15 @@ bool Set::operator< (Set &obj)
     {
         if(thisPrev->element == objPrev->element)
         {
-            counter+=1;
+            if(thisPrev->element!=0)
+            {
+                counter+=1;
+            }
             thisPrev=thisPrev->next;
         }
         objPrev = objPrev->next;
     }
-    if(counter==this->Size()) return true;
+    if(counter==thisSize) return true;
     return false;
 }
 Set& Set::operator^ (Set &obj)
@@ -175,16 +178,24 @@ ostream& operator<< (ostream & os, Set& obj)
 }
 void operator>> (istream & is, Set &obj)
 {
-    //ListNode *newNode=obj.head;
     int num;
     cout<<"Input the new integer for the linked list: "<<endl;
-    is>>num;//newNode->element;
-    obj.Insert(num);//newNode->element);
+    is>>num;
+    obj.Insert(num);
 }
-/*void Set::operator= (Set &obj)
+void Set::operator= (Set &obj)
 {
+    ListNode *thisPrev = this->head;
+    ListNode *objPrev = obj.head;
 
-}*/
+    while(objPrev ->element != 100)
+    {
+        thisPrev = objPrev;
+        this->Insert(thisPrev->element);
+        objPrev= objPrev->next;
+        thisPrev = thisPrev->next;
+    }
+}
 int Set::operator [] (int index)
 {
     int listArr[50];
@@ -281,14 +292,17 @@ void Set::Print ()
 }
 int Set::Size ()
 {
-    int count =1;
+    int count =0;
     
     ListNode *prev = head;
     //ListNode *curr = head->next;
 
     while(prev->element<100)
     {
-        count++;
+        if(prev->element!= 0 && prev->element !=100)
+        {
+             count++;
+        }       
         prev = prev->next;
     }
     return count;
