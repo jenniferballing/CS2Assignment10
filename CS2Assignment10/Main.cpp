@@ -114,7 +114,6 @@ int main ()
     eleven.Insert(6);
     eleven.Insert(8);
 
-    eleven.Print();
     twelve = eleven;
     twelve.Print();
 
@@ -133,7 +132,7 @@ int main ()
    
 
     //Test of error check
-    cout<<"Test of try-catch block: "<<endl;
+    cout<<"Test of try-catch block: insert 8 into set one {4,6,8}"<<endl;
     try
     {
         while (1)
