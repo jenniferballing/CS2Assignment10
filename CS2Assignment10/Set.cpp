@@ -309,4 +309,11 @@ int Set::Size ()
 }
 Set::~Set(void)
 {
+   ListNode *here = head, *after ;
+	while (here != NULL)
+	{	
+		after = here -> next ;
+		delete here ;
+		here = after ;
+	}
 }
